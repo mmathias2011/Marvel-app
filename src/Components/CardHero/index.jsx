@@ -1,5 +1,6 @@
 import React from 'react'
 import FavoriteButton from '../FavoriteButton'
+import './index.css';
 export default function Card({name, img, description, id, onFavorite, isFavorited }) {
   return (
     <div className="cardContainer">

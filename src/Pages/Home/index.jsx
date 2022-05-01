@@ -1,8 +1,10 @@
 import React from "react";
+import './index.css';
 import HomeHeader from "../../Components/HomeHeader";
 import CardHero from "../../Components/CardHero";
 import { useFavorites } from "../../Hooks";
 import { getCharacters } from "../../Api";
+import SearchBar from '../../Components/SearchBar'
 
 function Home() {
   const [characters, setCharacters] = React.useState([]);
@@ -19,27 +21,27 @@ function Home() {
   const handleFavorite = (hero) => {
     if (!hero.isFavorited) {
       addFavorites(hero);
-    }else removeFavorite(hero);
+    } else removeFavorite(hero);
   };
   return (
     <>
       <HomeHeader />
-      {characters.length &&
-        characters.map(
-          ({ name, thumbnail: { path, extension }, description, id }) => {
+      <SearchBar />
+      <div className="listingContainer">
+        {characters.length &&
+          characters.map(({ name, thumbnail: { path, extension }, id }) => {
             return (
               <CardHero
                 onFavorite={handleFavorite}
                 img={`${path}.${extension}`}
                 name={name}
-                description={description}
                 key={id}
                 id={id}
                 isFavorited={isFavorited({ id })}
               />
             );
-          }
-        )}
+          })}
+      </div>
     </>
   );
 }
