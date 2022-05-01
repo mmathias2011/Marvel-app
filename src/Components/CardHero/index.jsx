@@ -1,12 +1,13 @@
 import React from 'react'
-
-export default function index() {
+import FavoriteButton from '../FavoriteButton'
+export default function Card({name, img, description, id, onFavorite, isFavorited }) {
   return (
     <div className="cardContainer">
-        <img src={"propDaImg"} alt={"propDaDescricao"} className="cardImg" />
+        <img src={img} alt={description} className="cardImg" />
         <div className="cardInfo">
-            <p className="heroName">{"hero.name"}</p>
-            <p>favorito icon</p>
+            <p className="heroName">{name}</p>
+            <FavoriteButton isChecked={isFavorited} onClick={()=> onFavorite({name, id, isFavorited})}/>
+            
         </div>
     </div>
   )
