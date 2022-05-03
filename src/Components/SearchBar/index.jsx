@@ -12,7 +12,7 @@ const SearchBar = () => {
           <input
             className="containerSearchBar"
             placeholder="Procure por heróis"
-            onChange={""}
+            onChange={()=>{}}
           ></input>
         </div>
       </div>

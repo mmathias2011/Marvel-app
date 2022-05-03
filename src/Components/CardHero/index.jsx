@@ -1,15 +1,27 @@
-import React from 'react'
-import FavoriteButton from '../FavoriteButton'
-import './index.css';
-export default function Card({name, img, description, id, onFavorite, isFavorited }) {
+import React from "react";
+import { Link } from "react-router-dom";
+import FavoriteButton from "../FavoriteButton";
+import "./index.css";
+export default function Card({
+  name,
+  img,
+  description,
+  id,
+  onFavorite,
+  isFavorited,
+}) {
   return (
     <div className="cardContainer">
+      <Link to={`/${id}`}>
         <img src={img} alt={description} className="cardImg" />
-        <div className="cardInfo">
-            <p className="heroName">{name}</p>
-            <FavoriteButton isChecked={isFavorited} onClick={()=> onFavorite({name, id, isFavorited})}/>
-            
-        </div>
+      </Link>
+      <div className="cardInfo">
+        <p className="heroName">{name}</p>
+        <FavoriteButton
+          isChecked={isFavorited}
+          onClick={() => onFavorite({ name, id, isFavorited })}
+        />
+      </div>
     </div>
-  )
+  );
 }

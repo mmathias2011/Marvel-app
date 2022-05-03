@@ -1,13 +1,15 @@
-import React from 'react'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
+import React from "react";
+import Home from "../Pages/Home";
+import Hero from "../Pages/Hero";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-export default function Routes() {
+export default function Index() {
   return (
-    <div>index</div>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path=":heroID" element={<Hero />} exact />
+      </Routes>
+    </BrowserRouter>
+  );
 }

@@ -1,13 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
-import Home from './Pages/Home/index.jsx'
+/* import Home from './Pages/Home'; */
+/* import Hero from './Pages/Hero'; */
+import Routes from './Routes';
 
 
 function App() {
-
-  return (
-    <Home />
-  );
+  return <Routes />
 }
 
 export default App;

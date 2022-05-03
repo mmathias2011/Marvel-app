@@ -1,10 +1,10 @@
 import React from "react";
-import './index.css';
+import "./index.css";
 import HomeHeader from "../../Components/HomeHeader";
 import CardHero from "../../Components/CardHero";
 import { useFavorites } from "../../Hooks";
 import { getCharacters } from "../../Api";
-import SearchBar from '../../Components/SearchBar'
+import SearchBar from "../../Components/SearchBar";
 
 function Home() {
   const [characters, setCharacters] = React.useState([]);
@@ -27,8 +27,16 @@ function Home() {
     <>
       <HomeHeader />
       <SearchBar />
+      {/* <div className="charactersAmout">
+          {characters.length ? (
+            <div>{`Encontrados ${characters.length} heróis`}</div>
+          ) : (
+            ""
+          )}
+        </div> */}
       <div className="listingContainer">
-        {characters.length &&
+      
+        {characters.length > 0 && 
           characters.map(({ name, thumbnail: { path, extension }, id }) => {
             return (
               <CardHero
