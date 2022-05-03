@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 import searchIcon from "../../assets/ic_busca.svg";
-const SearchBar = () => {
+const SearchBar = ({onSearch}) => {
   return (
     <>
       <div className="containerSearch">
@@ -12,7 +12,9 @@ const SearchBar = () => {
           <input
             className="containerSearchBar"
             placeholder="Procure por heróis"
-            onChange={()=>{}}
+            onChange={(e)=>{
+              setTimeout(()=> onSearch(e),300)
+            }}
           ></input>
         </div>
       </div>
