@@ -1,0 +1,37 @@
+.titleRelease {
+    font-weight: bold;
+    font-size: 1.4em;
+    color: rgb(19, 13, 19);
+    padding-bottom: 25px;
+  }
+  
+  .releasesName {
+    font-weight: bold;
+    font-size: 0.7em;
+    color: rgb(19, 13, 19);
+    margin: 0;
+  }
+  
+  .releases {
+    padding-bottom: 100px;
+  }
+  
+  .containerReleases {
+    padding-left: 75px;
+    padding-top: 150px;
+  }
+  .imgReleases {
+    width: 125px;
+  }
+  .releasesName {
+    width: 125px;
+  }
+  
+  .charactersReleases {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-right: 80px;
+  }
+  

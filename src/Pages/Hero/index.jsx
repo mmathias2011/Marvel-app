@@ -3,6 +3,7 @@ import { getCharacter } from "../../Api";
 import { useParams } from "react-router-dom";
 import HeroDetails from "../../Components/HeroDetails";
 import { useFavorites } from "../../Hooks";
+import Releases from "../../Components/Releases";
 function Hero() {
   const params = useParams();
   const [character, setCharacter] = React.useState({});
@@ -22,18 +23,21 @@ function Hero() {
       removeFavorite(character);
     }
   };
-  console.log(character)
+  console.log(character);
   return (
-    <HeroDetails
-      name={character.name}
-      description={character.description}
-      img={character.thumbnail}
-      isFavorited={isFavorited(character)}
-      onFavorite={handleFavorite}
-      id={character.id}
-      comics={character.comics}
-      modified={character.modified}
-    />
+    <>
+      <HeroDetails
+        name={character.name}
+        description={character.description}
+        img={character.thumbnail}
+        isFavorited={isFavorited(character)}
+        onFavorite={handleFavorite}
+        id={character.id}
+        comics={character.comics}
+        modified={character.modified}
+      />
+      <Releases id={character.id} />
+    </>
   );
 }
 export default Hero;
