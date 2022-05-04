@@ -7,10 +7,13 @@ import { getCharacters, getCharacterFilteredByName } from "../../Api";
 import PaginationButtom from "../../Components/Pagination";
 import SearchBar from "../../Components/SearchBar";
 import Loader from "../../Components/Loader";
+import Filter from "../../Components/Filter";
 function Home() {
   const [characters, setCharacters] = React.useState([]);
   const [offset, setOffset] = React.useState(0);
-  const [, addFavorites, removeFavorite, isFavorited] = useFavorites();
+  const [isOnlyFavorites, setIsOnlyFavorites] = React.useState(null);
+  const [favorites, addFavorites, removeFavorite, isFavorited] = useFavorites();
+  
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -49,7 +52,8 @@ function Home() {
     <>
       <HomeHeader />
 
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={handleSearch}  />
+      <Filter charactersLength={characters.length} isOnlyFavorites={isOnlyFavorites} />
       {loading ? <Loader /> :
       (<div className="listingContainer">
         {characters.length > 0 &&
