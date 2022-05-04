@@ -1,52 +1,79 @@
 import React from "react";
 import FavoriteButton from "../FavoriteButton";
-import './index.css';
-const Details = ({ id, name, img, description, onFavorite, isFavorited }) => {
+import "./index.css";
+import iconComics from "../../assets/ic_quadrinhos.svg";
+import iconTrailer from "../../assets/ic_trailer.svg";
+import iconRatingOn from "../../assets/avaliacao_on.svg";
+import iconRatingOff from "../../assets/avaliacao_off.svg";
+
+const Details = ({
+  id,
+  name,
+  img = {},
+  description,
+  onFavorite,
+  isFavorited,
+  modified,
+  comics = {},
+}) => {
   return (
     <>
-      <div className="container-detail">
-        <div className="container-resume-hero">
-          <div className="container-title">
-            <h3 className="hero-name-detail"> {name}</h3>
+      <div className="heroWrapper">
+        <div className="detailsWrapper">
+          <div className="rowNameFavorite">
+            <h3 className=""> {name}</h3>
+
             <FavoriteButton
               isChecked={isFavorited}
               onClick={() => onFavorite({ name, id, isFavorited })}
             />
           </div>
-          <p className="hero-resume"> {description}</p>
-
-          <div className="cantainer-hero-detail">
-            <div className="">
-              <h3 className="hero-detail">Quadrinhos</h3>
-              <div className="icon-value">
-                <img
-                  className="detail-icon"
-                  src="/ic_quadrinhos.svg"
-                  alt="logo menor Marvel"
-                />
-                <h2 className="value">aaa</h2>
-              </div>
-            </div>
-            <div className="">
-              <h3 className="hero-detail">Filmes</h3>
-              <div className="icon-value">
-                <img
-                  className="detail-icon-movie"
-                  src="/ic_trailer.svg"
-                  alt="logo menor Marvel"
-                />
-                <h2 className="value">aa</h2>
-              </div>
-            </div>
+          <div className="heroDescription">
+            <p className=""> {description}</p>
           </div>
-          <div className="container-rating">raiting</div>
-          <div className="container-last-publication">
-            <h3 className="hero-detail">Último quadrinho:</h3>
-            <div className="last-publication">last pub</div>
+          <div className="heroDetails">
+            <div className="heroRow">
+              <div className="comics">
+                <h3 className="">Quadrinhos</h3>
+                <div className="comicDetails">
+                  <img
+                    className="comicIcon"
+                    src={iconComics}
+                    alt="Comic Icon"
+                  />
+                  <h2 className="">{comics.available}</h2>
+                </div>
+              </div>
+              <div className="movie">
+                <h3 className="">Filmes</h3>
+                <div className="comicDetails">
+                  <img className="" src={iconTrailer} alt="logo menor Marvel" />
+                  <h2 className="">40</h2>
+                </div>
+              </div>
+            </div>
+            <div className="rating">
+              <p>Rating:</p>
+              <div className="icons">
+                <img src={iconRatingOn} alt="rating icon" />
+                <img src={iconRatingOn} alt="rating icon" />
+                <img src={iconRatingOn} alt="rating icon" />
+                <img src={iconRatingOn} alt="rating icon" />
+                <img src={iconRatingOff} alt="rating icon" />
+              </div>
+            </div>
+            <div className="comicDetails">
+              <h3 className="">Último quadrinho:</h3>
+              <div className="">{modified}</div>
+            </div>
           </div>
         </div>
-        <div>
-          <img className="hero-img" src={img} alt="" />
+        <div className="colImg">
+          <img
+            className="heroImg"
+            src={`${img.path}.${img.extension}`}
+            alt={name}
+          />
         </div>
       </div>
     </>

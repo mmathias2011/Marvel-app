@@ -10,26 +10,29 @@ function Hero() {
   React.useEffect(() => {
     const fetchData = async () => {
       const { data } = await getCharacter(params.heroID);
-      console.log(data.results)
       setCharacter(data?.results?.[0] || {});
     };
     fetchData();
   }, [params.heroID]);
   const handleFavorite = (character) => {
-    console.log(character)
+    console.log(character);
     if (!character.isFavorited) {
       addFavorites(character);
-    } else{ removeFavorite(character)};
+    } else {
+      removeFavorite(character);
+    }
   };
- 
+  console.log(character)
   return (
     <HeroDetails
       name={character.name}
       description={character.description}
-      img={`${character.path}.${character.extension}`}
+      img={character.thumbnail}
       isFavorited={isFavorited(character)}
       onFavorite={handleFavorite}
       id={character.id}
+      comics={character.comics}
+      modified={character.modified}
     />
   );
 }
