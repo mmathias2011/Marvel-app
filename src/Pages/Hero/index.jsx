@@ -1,10 +1,13 @@
 import React from "react";
 import { getCharacter } from "../../Api";
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import HeroDetails from "../../Components/HeroDetails";
 import { useFavorites } from "../../Hooks";
 import Releases from "../../Components/Releases";
 import SearchBar from "../../Components/SearchBar";
+import Footer from "../../Components/Footer";
+import LogoImg from '../../assets/logo_menor.svg'
+import "./index.css";
 
 function Hero() {
   const params = useParams();
@@ -31,8 +34,11 @@ function Hero() {
     navigate(`/?search=${value}`);
   };
   return (
-    <>
-      <SearchBar onSearch={handleSearch} />
+    <div className="heroContainer">
+      <div className="heroHeader">
+        <img className="logoHero" src={LogoImg} alt="Logo Marvel" />
+        <SearchBar onSearch={handleSearch} />
+      </div>
       <HeroDetails
         name={character.name}
         description={character.description}
@@ -44,7 +50,8 @@ function Hero() {
         modified={character.modified}
       />
       <Releases id={character.id} />
-    </>
+      <Footer />
+    </div>
   );
 }
 export default Hero;

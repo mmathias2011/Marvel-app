@@ -1,8 +1,13 @@
-import React from 'react'
+import React from "react";
+import "./index.css";
 
-const Pagination = ({onClick}) =>{
+const Pagination = ({ onClick }) => {
   return (
-    <button onClick={onClick}>Ver mais</button>
-  )
-}
+    <div className="paginationContainer">
+      <button className="BtnPagination" onClick={onClick}>
+        Ver mais
+      </button>
+    </div>
+  );
+};
 export default Pagination;

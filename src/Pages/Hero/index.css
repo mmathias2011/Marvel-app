@@ -1,0 +1,13 @@
+.heroContainer{
+    width: 100%;
+    height: auto;
+}
+.heroHeader{
+    width: 80%;
+    margin: 0 auto;
+    height: 150px;
+}
+.logoHero{
+    position: absolute;
+    
+}

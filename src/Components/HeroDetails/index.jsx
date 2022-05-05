@@ -21,7 +21,7 @@ const Details = ({
       <div className="heroWrapper">
         <div className="detailsWrapper">
           <div className="rowNameFavorite">
-            <h3 className=""> {name}</h3>
+            <h3 className="heroNameDetails"> {name}</h3>
 
             <FavoriteButton
               isChecked={isFavorited}

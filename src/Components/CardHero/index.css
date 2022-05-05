@@ -5,6 +5,7 @@
     align-items: center;
     width: 250px;
     height: auto;
+    padding-bottom:40px;
 }
 .cardInfo {
     width: 100%;
@@ -12,7 +13,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 0;
+    padding: 20px 0;
   }
 .cardImg {
     width: 250px;
@@ -21,4 +22,8 @@
     background-color: rgb(75, 75, 193);
     border-bottom-style: solid;
     border-bottom-color: red;
+  }
+  .heroName{
+    font-size: 1em;
+    font-weight: 600;
   }

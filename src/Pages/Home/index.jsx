@@ -3,8 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./index.css";
 import HomeHeader from "../../Components/HomeHeader";
 import CardHero from "../../Components/CardHero";
+import Footer from "../../Components/Footer";
 import { useFavorites } from "../../Hooks";
-import { getCharacters, getCharacterFilteredByName } from "../../Api";
+import { getCharacters } from "../../Api";
 import PaginationButtom from "../../Components/Pagination";
 import SearchBar from "../../Components/SearchBar";
 import Loader from "../../Components/Loader";
@@ -49,7 +50,7 @@ function Home() {
     if (value) {
       navigate(`/?search=${value}`);
     } else {
-      navigate("/")
+      navigate("/");
     }
   };
   const handlePagination = async () => {
@@ -62,45 +63,49 @@ function Home() {
   };
   const handleToggleAscFilter = () => {
     setAscFilter(!ascFilter);
+    
   };
   const heros = isOnlyFavorites ? favorites : characters;
   return (
-    <>
-      <HomeHeader />
+    <div className="homeContainer">
+      <div className="homeContent">
+        <HomeHeader />
 
-      <SearchBar onSearch={handleSearch} />
-      <Filter
-        charactersLength={characters.length}
-        isOnlyFavorites={isOnlyFavorites}
-        onToggleFavorite={handleToggleFavorite}
-        onToggleFilterAsc={handleToggleAscFilter}
-      />
-      {loading ? (
-        <Loader />
-      ) : (
-        <div className="listingContainer">
-          {heros.length > 0 &&
-            heros.map(
-              ({ name, thumbnail: { path, extension }, id, description }) => {
-                return (
-                  <CardHero
-                    onFavorite={handleFavorite}
-                    img={`${path}.${extension}`}
-                    name={name}
-                    key={id}
-                    id={id}
-                    isFavorited={isFavorited({ id })}
-                    path={path}
-                    extension={extension}
-                    description={description}
-                  />
-                );
-              }
-            )}
-        </div>
-      )}
-      <PaginationButtom onClick={handlePagination} />
-    </>
+        <SearchBar onSearch={handleSearch} />
+        <Filter
+          charactersLength={characters.length}
+          isOnlyFavorites={isOnlyFavorites}
+          onToggleFavorite={handleToggleFavorite}
+          onToggleFilterAsc={handleToggleAscFilter}
+        />
+        {loading ? (
+          <Loader />
+        ) : (
+          <div className="listingContainer">
+            {heros.length > 0 &&
+              heros.map(
+                ({ name, thumbnail: { path, extension }, id, description }) => {
+                  return (
+                    <CardHero
+                      onFavorite={handleFavorite}
+                      img={`${path}.${extension}`}
+                      name={name}
+                      key={id}
+                      id={id}
+                      isFavorited={isFavorited({ id })}
+                      path={path}
+                      extension={extension}
+                      description={description}
+                    />
+                  );
+                }
+              )}
+          </div>
+        )}
+        <PaginationButtom onClick={handlePagination} />
+      </div>
+      <Footer />
+    </div>
   );
 }
 export default Home;
