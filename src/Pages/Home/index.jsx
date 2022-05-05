@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./index.css";
 import HomeHeader from "../../Components/HomeHeader";
 import CardHero from "../../Components/CardHero";
@@ -17,33 +18,38 @@ function Home() {
 
   const [favorites, addFavorites, removeFavorite, isFavorited] = useFavorites();
 
+  const { search } = useLocation();
+  const navigate = useNavigate();
+
   React.useEffect(() => {
     const fetchData = async () => {
-      let params ={};
-      if(ascFilter){
+      let params = {};
+      if (ascFilter) {
         params.orderBy = "-name";
       }
-      
+      if (search) {
+        params.nameStartsWith = new URLSearchParams(search).get("search");
+      }
+
       const { data } = await getCharacters(params);
       setCharacters(data?.results || []);
       setLoading(false);
     };
     fetchData();
-  }, [ascFilter]);
+  }, [ascFilter, search]);
 
   const handleFavorite = (hero) => {
     if (!hero.isFavorited) {
       addFavorites(hero);
     } else removeFavorite(hero);
   };
-  const handleSearch = async (e) => {
-    const value = e.target.value;
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const value = e.target.elements.query.value;
     if (value) {
-      const { data } = await getCharacterFilteredByName(value);
-      setCharacters(data?.results || []);
+      navigate(`/?search=${value}`);
     } else {
-      const { data } = await getCharacters();
-      setCharacters(data?.results || []);
+      navigate("/")
     }
   };
   const handlePagination = async () => {
@@ -55,7 +61,7 @@ function Home() {
     setIsOnlyFavorites(!isOnlyFavorites);
   };
   const handleToggleAscFilter = () => {
-    setAscFilter(!ascFilter)
+    setAscFilter(!ascFilter);
   };
   const heros = isOnlyFavorites ? favorites : characters;
   return (

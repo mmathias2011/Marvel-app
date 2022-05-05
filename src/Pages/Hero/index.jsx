@@ -1,11 +1,15 @@
 import React from "react";
 import { getCharacter } from "../../Api";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import HeroDetails from "../../Components/HeroDetails";
 import { useFavorites } from "../../Hooks";
 import Releases from "../../Components/Releases";
+import SearchBar from "../../Components/SearchBar";
+
 function Hero() {
   const params = useParams();
+  const navigate = useNavigate();
+
   const [character, setCharacter] = React.useState({});
   const [, addFavorites, removeFavorite, isFavorited] = useFavorites();
   React.useEffect(() => {
@@ -16,16 +20,19 @@ function Hero() {
     fetchData();
   }, [params.heroID]);
   const handleFavorite = (character) => {
-    console.log(character);
     if (!character.isFavorited) {
       addFavorites(character);
     } else {
       removeFavorite(character);
     }
   };
-  console.log(character);
+  const handleSearch = (e) => {
+    const value = e.target.elements.query.value;
+    navigate(`/?search=${value}`);
+  };
   return (
     <>
+      <SearchBar onSearch={handleSearch} />
       <HeroDetails
         name={character.name}
         description={character.description}
