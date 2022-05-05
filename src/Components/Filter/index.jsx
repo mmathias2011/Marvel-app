@@ -5,7 +5,7 @@ import AscIcon from "../../assets/ic_heroi.svg";
 import favoriteOn from "../../assets/fav_checked.svg";
 import favoriteOff from "../../assets/fav_unchecked.svg";
 
-const Filter = ({ charactersLength, isOnlyFavorites, onToggleFavorite }) => {
+const Filter = ({ charactersLength, isOnlyFavorites, onToggleFavorite, onToggleFilterAsc }) => {
   return (
     <>
       <div className="container-info">
@@ -16,7 +16,7 @@ const Filter = ({ charactersLength, isOnlyFavorites, onToggleFavorite }) => {
             <img className="img-hero" src={AscIcon} alt="ícone de navegacao" />
             Ordenar por nome - A/Z
           </div>
-          <ToggleButton />
+          <ToggleButton handleClick={onToggleFilterAsc} />
 
           <div className="favorite-button">
             <button

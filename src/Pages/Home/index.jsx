@@ -12,19 +12,24 @@ function Home() {
   const [characters, setCharacters] = React.useState([]);
   const [offset, setOffset] = React.useState(0);
   const [isOnlyFavorites, setIsOnlyFavorites] = React.useState(false);
-  const [favorites, addFavorites, removeFavorite, isFavorited] = useFavorites();
-  
+  const [ascFilter, setAscFilter] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
+
+  const [favorites, addFavorites, removeFavorite, isFavorited] = useFavorites();
 
   React.useEffect(() => {
     const fetchData = async () => {
-      const { data } = await getCharacters();
+      let params ={};
+      if(ascFilter){
+        params.orderBy = "-name";
+      }
+      
+      const { data } = await getCharacters(params);
       setCharacters(data?.results || []);
       setLoading(false);
     };
     fetchData();
-  }, []);
-  
+  }, [ascFilter]);
 
   const handleFavorite = (hero) => {
     if (!hero.isFavorited) {
@@ -41,44 +46,54 @@ function Home() {
       setCharacters(data?.results || []);
     }
   };
-  const handlePagination = async ()=>{
-
-    const { data } = await getCharacters({offset:offset + 20});
+  const handlePagination = async () => {
+    const { data } = await getCharacters({ offset: offset + 20 });
     setOffset(data.offset + 20);
-    setCharacters([...characters,...data.results])
-    
-  }
-  const handleToggleFavorite =() =>{
-      setIsOnlyFavorites(!isOnlyFavorites);
-
+    setCharacters([...characters, ...data.results]);
   };
-  const heros = isOnlyFavorites? favorites : characters;
+  const handleToggleFavorite = () => {
+    setIsOnlyFavorites(!isOnlyFavorites);
+  };
+  const handleToggleAscFilter = () => {
+    setAscFilter(!ascFilter)
+  };
+  const heros = isOnlyFavorites ? favorites : characters;
   return (
     <>
       <HomeHeader />
 
-      <SearchBar onSearch={handleSearch}  />
-      <Filter charactersLength={characters.length} isOnlyFavorites={isOnlyFavorites} onToggleFavorite={handleToggleFavorite}/>
-      {loading ? <Loader /> :
-      (<div className="listingContainer">
-        {heros.length > 0 &&
-          heros.map(({ name, thumbnail: { path, extension }, id ,description}) => {
-            return (
-              <CardHero
-                onFavorite={handleFavorite}
-                img={`${path}.${extension}`}
-                name={name}
-                key={id}
-                id={id}
-                isFavorited={isFavorited({ id })}
-                path={path}
-                extension={extension}
-                description={description}
-              />
-            );
-          })}
-      </div>)}
-      <PaginationButtom onClick={handlePagination}/>
+      <SearchBar onSearch={handleSearch} />
+      <Filter
+        charactersLength={characters.length}
+        isOnlyFavorites={isOnlyFavorites}
+        onToggleFavorite={handleToggleFavorite}
+        onToggleFilterAsc={handleToggleAscFilter}
+      />
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="listingContainer">
+          {heros.length > 0 &&
+            heros.map(
+              ({ name, thumbnail: { path, extension }, id, description }) => {
+                return (
+                  <CardHero
+                    onFavorite={handleFavorite}
+                    img={`${path}.${extension}`}
+                    name={name}
+                    key={id}
+                    id={id}
+                    isFavorited={isFavorited({ id })}
+                    path={path}
+                    extension={extension}
+                    description={description}
+                  />
+                );
+              }
+            )}
+        </div>
+      )}
+      <PaginationButtom onClick={handlePagination} />
     </>
   );
 }
