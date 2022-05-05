@@ -8,7 +8,7 @@ export default function useFavorites() {
         if (favorites.length === 5) {
             alert("Limite de favoritos atingido - 5")
         } else {
-            const newFavorites = [...favorites, ...[{ id: hero.id, name: hero.name }]];
+            const newFavorites = [...favorites, ...[{ id: hero.id, name: hero.name, description: hero.description, thumbnail: hero.thumbnail }]];
             window.localStorage.setItem(LOCAL_STORAGE_FAVORITES_KEY, JSON.stringify(newFavorites));
             setFavorites(newFavorites);
         }

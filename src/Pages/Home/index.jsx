@@ -11,7 +11,7 @@ import Filter from "../../Components/Filter";
 function Home() {
   const [characters, setCharacters] = React.useState([]);
   const [offset, setOffset] = React.useState(0);
-  const [isOnlyFavorites, setIsOnlyFavorites] = React.useState(null);
+  const [isOnlyFavorites, setIsOnlyFavorites] = React.useState(false);
   const [favorites, addFavorites, removeFavorite, isFavorited] = useFavorites();
   
   const [loading, setLoading] = React.useState(true);
@@ -48,16 +48,21 @@ function Home() {
     setCharacters([...characters,...data.results])
     
   }
+  const handleToggleFavorite =() =>{
+      setIsOnlyFavorites(!isOnlyFavorites);
+
+  };
+  const heros = isOnlyFavorites? favorites : characters;
   return (
     <>
       <HomeHeader />
 
       <SearchBar onSearch={handleSearch}  />
-      <Filter charactersLength={characters.length} isOnlyFavorites={isOnlyFavorites} />
+      <Filter charactersLength={characters.length} isOnlyFavorites={isOnlyFavorites} onToggleFavorite={handleToggleFavorite}/>
       {loading ? <Loader /> :
       (<div className="listingContainer">
-        {characters.length > 0 &&
-          characters.map(({ name, thumbnail: { path, extension }, id }) => {
+        {heros.length > 0 &&
+          heros.map(({ name, thumbnail: { path, extension }, id ,description}) => {
             return (
               <CardHero
                 onFavorite={handleFavorite}
@@ -66,6 +71,9 @@ function Home() {
                 key={id}
                 id={id}
                 isFavorited={isFavorited({ id })}
+                path={path}
+                extension={extension}
+                description={description}
               />
             );
           })}

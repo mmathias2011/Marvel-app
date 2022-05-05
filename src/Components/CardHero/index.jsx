@@ -9,6 +9,8 @@ export default function Card({
   id,
   onFavorite,
   isFavorited,
+  path,
+  extension,
 }) {
   return (
     <div className="cardContainer">
@@ -19,7 +21,15 @@ export default function Card({
         <p className="heroName">{name}</p>
         <FavoriteButton
           isChecked={isFavorited}
-          onClick={() => onFavorite({ name, id, isFavorited })}
+          onClick={() =>
+            onFavorite({
+              name,
+              id,
+              isFavorited,
+              description,
+              thumbnail: { path, extension },
+            })
+          }
         />
       </div>
     </div>

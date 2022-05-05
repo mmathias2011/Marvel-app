@@ -2,11 +2,10 @@ import React from "react";
 import "./index.css";
 import ToggleButton from "../ToggleButtom";
 import AscIcon from "../../assets/ic_heroi.svg";
-import navigateIcon from "../../assets/ic_heroi.svg";
 import favoriteOn from "../../assets/fav_checked.svg";
 import favoriteOff from "../../assets/fav_unchecked.svg";
 
-const Filter = ({ charactersLength }) => {
+const Filter = ({ charactersLength, isOnlyFavorites, onToggleFavorite }) => {
   return (
     <>
       <div className="container-info">
@@ -23,14 +22,13 @@ const Filter = ({ charactersLength }) => {
             <button
               className="button-favorite"
               data-testid="toggle-favorite"
-              onClick={()=>{}}
+              onClick={() => onToggleFavorite(isOnlyFavorites)}
             >
               <img
                 className="img-favorite"
-                src={favoriteOff}
+                src={isOnlyFavorites ? favoriteOn : favoriteOff}
                 alt="ícone de navegacao"
               />
-            
             </button>
           </div>
         </div>
