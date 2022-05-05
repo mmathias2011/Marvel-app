@@ -11,7 +11,7 @@ const HeroApi = async (path, query = {}) => {
     hash,
     ...query
   }
-  const url = `http://gateway.marvel.com/v1/public/${path}?${new URLSearchParams(queryParams).toString()}`;
+  const url = `https://gateway.marvel.com/v1/public/${path}?${new URLSearchParams(queryParams).toString()}`;
   return fetch(url);
 };
 export default HeroApi;
